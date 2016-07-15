@@ -1,0 +1,66 @@
+.trackTable {
+  margin-left: 50px;
+  background-color: rgba(234, 234, 234, 0.65); }
+
+.trackTable th {
+  text-align: left; }
+
+.spotifyPlayer {
+  position: fixed;
+  top: 20%;
+  left: 0; }
+
+.playerCloseButton {
+  color: white;
+  position: absolute;
+  right: 0;
+  cursor: pointer; }
+
+.mainTable {
+  padding-left: 15em;
+  width: 100%;
+  padding-top: 3em;
+  padding-right: 14em; }
+
+.mainTable th {
+  width: 40%;
+  text-align: left;
+  border-bottom: 1px solid;
+  padding-bottom: 1em; }
+
+.expandPlaylist {
+  margin-right: 15px;
+  cursor: pointer; }
+
+.trackData {
+  width: 100%; }
+
+.playlistNameInput {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+.tableContainer {
+  background-color: rgba(186, 186, 186, 0.65);
+  margin-left: 10em;
+  margin-right: 10em; }
+
+.mainTable tbody tr td:nth-child(1) {
+  padding-top: 1em; }
+
+.mainTable tbody tr td {
+  border-bottom: 1px solid;
+  padding-bottom: 1em; }
+
+.mainTable tbody tr td:nth-child(1) {
+  width: 60%; }
+
+.mainTable tbody tr td:nth-child(2) {
+  width: 15%; }
+
+.trackTable tbody tr td:nth-child(1) {
+  width: 82%; }
+
+.trackTable tbody tr td:nth-child(2) {
+  width: 15%; }
+
+/*# sourceMappingURL=music.component.css.map */
