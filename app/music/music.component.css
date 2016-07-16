@@ -10,6 +10,10 @@
   top: 20%;
   left: 0; }
 
+.showPlaylistButton {
+  margin-bottom: 2em;
+}
+
 .playerCloseButton {
   color: white;
   position: absolute;
