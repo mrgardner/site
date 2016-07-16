@@ -23,9 +23,12 @@ export class MusicComponent {
   private showTrackPlayer: boolean;
   private trackId: string;
   private trackUrl: SafeResourceUrl;
+  private visible: boolean;
+  private displayIcon: string;
 
   constructor(private spotifyService: SpotifyService, private sanitizer: DomSanitizationService) {
-
+    this.visible = true;
+    this.displayIcon = 'fa fa-plus-circle';
   }
 
   login() {
@@ -41,8 +44,8 @@ export class MusicComponent {
       () => { });
   }
 
-  getPlaylists() {
-    this.spotifyService.getUserPlaylists(this.userId,33).subscribe(
+  getPlaylists(userId: string) {
+    this.spotifyService.getUserPlaylists(userId, {limit: 50}).subscribe(
       data => {
         this.playlists = data;
         this.playlistOwner = data.items.name;
@@ -59,6 +62,8 @@ export class MusicComponent {
         this.trackList = data;
         this.playlistId = id;
         this.showTrackList = !this.showTrackList;
+        this.visible = !this.visible;
+        this.displayIcon = this.visible ? 'fa fa-plus-circle' : 'fa fa-minus-circle';
       });
 
   }

@@ -1,7 +1,8 @@
 <h1>Welcome to my music</h1>
 <button *ngIf="!user" (click)="login()">Login</button>
 <p *ngIf="!!user">You are logged in as: {{user.id}}</p>
-<button *ngIf="!!user" (click)="getPlaylists()">Show Playlists</button>
+<span *ngIf="!!user">Enter Spotify Username: </span><input *ngIf="!!user" type="text" [(ngModel)]="userName">
+<button class="showPlaylistButton" *ngIf="!!user" [disabled]="!userName" (click)="getPlaylists(userName)">Show Playlists</button>
 <div class="tableContainer">
   <table class="mainTable" *ngIf="!!playlists">
     <thead>
@@ -21,7 +22,7 @@
     <tbody *ngFor="let playlist of (playlists.items | playListNameFilter:filterPlaylistName | playListOwnerFilter:filterPlaylistOwner)">
     <tr >
       <td>
-        <span (click)="getTrackList(playlist.id, playlist.owner.id)" class="expandPlaylist fa fa-plus-circle"></span>
+        <span [ngClass]="displayIcon" (click)="getTrackList(playlist.id, playlist.owner.id)" class="expandPlaylist"></span>
         {{playlist.name}}
       </td>
       <td>{{playlist.owner.id}}</td>
