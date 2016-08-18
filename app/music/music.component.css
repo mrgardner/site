@@ -10,10 +10,6 @@
   top: 20%;
   left: 0; }
 
-.showPlaylistButton {
-  margin-bottom: 2em;
-}
-
 .playerCloseButton {
   color: white;
   position: absolute;
@@ -66,5 +62,3 @@
 
 .trackTable tbody tr td:nth-child(2) {
   width: 15%; }
-
-/*# sourceMappingURL=music.component.css.map */

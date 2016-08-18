@@ -31,6 +31,9 @@ var barrels = [
     // App specific barrels.
     'app',
     'app/shared',
+    'app/header',
+    'app/steam',
+    'app/home',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) {
