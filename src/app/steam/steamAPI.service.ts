@@ -10,7 +10,7 @@ export class SteamAPI {
   private url: string;
 
   constructor(private http: Http) {
-    this.baseUrl  = 'http://api.steampowered.com';
+    this.baseUrl  = 'https://api.steampowered.com';
     this.apiKey = 'CE3B085E1B086B9EDC3EE903FE9F01CF';
     this.steamId = '76561197992462280';
 
