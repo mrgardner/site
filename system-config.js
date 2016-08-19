@@ -34,6 +34,10 @@ var barrels = [
     'app/header',
     'app/steam',
     'app/home',
+    'app/form',
+    'app/login',
+    'app/logout',
+    'app/register',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) {
