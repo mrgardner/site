@@ -16,4 +16,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  test() {
+    localStorage.setItem('auth', 'test');
+  }
 }

@@ -39,6 +39,10 @@ const barrels: string[] = [
   'app/header',
   'app/steam',
   'app/home',
+  'app/form',
+  'app/login',
+  'app/logout',
+  'app/register',
   /** @cli-barrel */
 ];
 
