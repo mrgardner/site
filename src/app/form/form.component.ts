@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -10,13 +10,13 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 })
 export class FormComponent implements OnInit {
 
-  constructor(private router:Router) {
-    if (!localStorage.getItem('auth')) {
+  constructor(private router:Router, private route: ActivatedRoute) {
+    if (localStorage.getItem('auth')) {
       console.log("TOKEN EXISTS");
     }
     else {
       console.log("TOKEN DOES NOT EXIST")
-      this.router.navigate(['/register']);
+      this.router.navigate(['/login']);
     }
   }
 
@@ -24,6 +24,10 @@ export class FormComponent implements OnInit {
 
   }
 
+  logout() {
+    localStorage.removeItem('auth');
+    this.router.navigate(["/login", {}], {relativeTo: this.route});
+  }
 
 
 }

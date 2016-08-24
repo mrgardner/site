@@ -7,20 +7,26 @@ import {HeaderComponent} from "./header/header.component";
 import {FormComponent} from "./form/form.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
-import {LogoutComponent} from "./logout/logout.component";
 import {RegisterComponent} from "./register/register.component";
 import {SteamComponent} from "./steam/steam.component";
 import { routing }      from './app.routes';
-import { FormsModule }      from '@angular/forms';
 import { HttpModule }       from '@angular/http';
+import { AngularFireModule} from "angularfire2/angularfire2";
 
-declare var Firebase;
+
+
+// Must export the config
+export const firebaseConfig = {
+  apiKey: "7hmrOOIVvrHgo9wstFeusvWQAGlji1pAj4FqvrNU",
+  authDomain: "localhost",
+  databaseURL: "https://personal-site-85a8a.firebaseio.com/",
+  storageBucket: ""
+};
+
 
 @NgModule({
-  declarations: [AppComponent, MusicComponent, HeaderComponent, FormComponent, HomeComponent, LoginComponent, LogoutComponent, RegisterComponent, SteamComponent],
-  imports:      [BrowserModule, ReactiveFormsModule,FormsModule,
-    HttpModule,
-    routing],
+  declarations: [AppComponent, MusicComponent, HeaderComponent, FormComponent, HomeComponent, LoginComponent, RegisterComponent, SteamComponent],
+  imports:      [BrowserModule, ReactiveFormsModule, HttpModule, routing, AngularFireModule.initializeApp(firebaseConfig)],
   bootstrap:    [AppComponent],
 })
 export class AppModule {}
