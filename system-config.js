@@ -6,11 +6,14 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 var map = {
-    'angular2-spotify': 'vendor/angular2-spotify'
+    'angular2-spotify': 'vendor/angular2-spotify',
+    'angularfire2': 'vendor/angularfire2',
+    'firebase': 'vendor/firebase/firebase.js'
 };
 /** User packages configuration. */
 var packages = {
-    'angular2-spotify': 'angular2-spotify.js'
+    'angular2-spotify': 'angular2-spotify.js',
+    'angularfire2': 'angularfire2.js'
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************

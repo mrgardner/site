@@ -1,0 +1,14 @@
+.validation-error {
+  color:red
+}
+
+.validation-pass {
+   color:green
+}
+
+.formContainer {
+  position:relative;
+  width:300px;
+  margin-left: auto;
+  margin-right:auto
+}
