@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
         if(this.username == username && this.password == password) {
           console.log("CORRECT LOGIN with " + this.username + " and "+this.password);
-          localStorage.setItem('auth', "TEST");
+          localStorage.setItem('authh', "TEST");
           this.router.navigate(["/form", {}], {relativeTo: this.route});
         }
         else {

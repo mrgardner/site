@@ -11,7 +11,7 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 export class FormComponent implements OnInit {
 
   constructor(private router:Router, private route: ActivatedRoute) {
-    if (localStorage.getItem('auth')) {
+    if (localStorage.getItem('authh')) {
       console.log("TOKEN EXISTS");
     }
     else {
@@ -25,7 +25,7 @@ export class FormComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('auth');
+    localStorage.removeItem('authh');
     this.router.navigate(["/login", {}], {relativeTo: this.route});
   }
 
