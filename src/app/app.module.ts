@@ -1,6 +1,6 @@
 import { NgModule, provide }       from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
-import {ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { AppComponent }   from './app.component';
 import {MusicComponent} from "./music/music.component";
 import {HeaderComponent} from "./header/header.component";
@@ -26,7 +26,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [AppComponent, MusicComponent, HeaderComponent, FormComponent, HomeComponent, LoginComponent, RegisterComponent, SteamComponent],
-  imports:      [BrowserModule, ReactiveFormsModule, HttpModule, routing, AngularFireModule.initializeApp(firebaseConfig)],
+  imports:      [BrowserModule, ReactiveFormsModule, HttpModule, FormsModule, routing, AngularFireModule.initializeApp(firebaseConfig)],
   bootstrap:    [AppComponent],
 })
 export class AppModule {}
