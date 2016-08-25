@@ -23,12 +23,12 @@ export class MusicComponent {
   private showTrackPlayer: boolean;
   private trackId: string;
   private trackUrl: SafeResourceUrl;
-  private visible: boolean;
-  private displayIcon: string;
+  private displayIcon: any[];
+  private wrongUsername: boolean;
+  private playlistLength: number;
 
   constructor(private spotifyService: SpotifyService, private sanitizer: DomSanitizationService) {
-    this.visible = true;
-    this.displayIcon = 'fa fa-plus-circle';
+    this.wrongUsername = false;
   }
 
   login() {
@@ -49,23 +49,40 @@ export class MusicComponent {
       data => {
         this.playlists = data;
         this.playlistOwner = data.items.name;
+        this.playlistLength = data.total;
+        this.displayIcon = new Array(data.total);
+        for (var i=0; i < data.total; i++) {
+          this.displayIcon[i] = 'fa fa-plus-circle';
+        }
+        if (data.total == 0) {
+          this.playlists = false;
+          this.wrongUsername = true;
+        }
+        else {
+          this.wrongUsername = false;
+        }
       }
     )
   }
-
 
   getTrackList(id: string, user: string) {
     this.spotifyService
       .getPlaylistTracks(user, id)
       .subscribe(data => {
-
         this.trackList = data;
         this.playlistId = id;
-        this.showTrackList = !this.showTrackList;
-        this.visible = !this.visible;
-        this.displayIcon = this.visible ? 'fa fa-plus-circle' : 'fa fa-minus-circle';
       });
+  }
 
+  toggleIcon (id: string) {
+    if(this.displayIcon[id] == 'fa fa-plus-circle') {
+      this.showTrackList = true;
+      this.displayIcon[id] = 'fa fa-minus-circle';
+    }
+    else if (this.displayIcon[id] == 'fa fa-minus-circle') {
+      this.showTrackList = false;
+      this.displayIcon[id] = 'fa fa-plus-circle';
+    }
   }
 
   playTrack(id: string) {

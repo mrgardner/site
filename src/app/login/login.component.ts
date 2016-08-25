@@ -21,8 +21,10 @@ export class LoginComponent implements OnInit {
 
   private password: string;
   private username: string;
+  private wrongCredentials: boolean;
 
   constructor(private formBuilder:FormBuilder, private _userService: UserService, private router: Router,private route: ActivatedRoute) {
+    this.wrongCredentials = false;
     this.myForm = formBuilder.group({
         'userData': formBuilder.group({
           'username': ['',[
@@ -64,6 +66,7 @@ export class LoginComponent implements OnInit {
           console.log("Wrong login");
           console.log("local user -> "+username+ " != "+this.username);
           console.log("local pass -> "+password+ " != "+this.password);
+          this.wrongCredentials = true;
         }
       });
     }
@@ -78,9 +81,4 @@ export class LoginComponent implements OnInit {
       return {invalidLength: true};
     }
   }
-
-  registerPage() {
-    this.router.navigate(['/register']);
-  }
-
 }

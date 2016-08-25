@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {SteamAPI} from "./steam.service";
-import {Http} from "@angular/http";
+import {SteamAPI} from "../services/steam.service";
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
+import {UserService} from "../services/user.service";
+import {Control, ControlGroup} from "@angular/common";
 
 @Component({
   moduleId: module.id,
@@ -16,12 +22,25 @@ export class SteamComponent implements OnInit {
   private test: Date;
   private userId: string;
   private showUser: boolean;
-  private displayIcon1: string;
+  private displayIcon: any[];
   private visible: boolean;
+  private wrongCredentials: boolean;
+  private myForm:FormGroup;
 
-  constructor(private api: SteamAPI, private http: Http) {
+
+  constructor(private api: SteamAPI, private formBuilder:FormBuilder) {
     this.test = new Date();
     this.visible = true;
+    this.wrongCredentials = false;
+
+    this.myForm = formBuilder.group({
+        'steamId': ['', [
+          Validators.required,
+          Validators.minLength(17),
+          Validators.pattern('^(0|[0-9][0-9]*)$')
+        ]],
+      }
+    );
   }
 
   ngOnInit() {
@@ -29,41 +48,49 @@ export class SteamComponent implements OnInit {
   }
 
   getUser(id: string) {
-    var proxyBase = 'https://crossorigin.me/';
-    var urlBase = 'http://api.steampowered.com/';
-    var apiKey = '4EC83A85E32BE750DD60CCB4DA20BA7F';
-    var friendSub = 'ISteamUser/GetPlayerSummaries/v0002/?key=';
-    var url = proxyBase+urlBase+friendSub+apiKey+'&steamids='+id;
-    console.log(url);
-    this.http.get(url).map(res => res.json())
-      .subscribe(
+    var api = this.api.getUser(id);
+    api.subscribe(
         data => {
-          console.log();
           this.users = data.response.players;
           this.userId = id;
           this.showUser = !this.showUser;
           this.visible = !this.visible;
-          this.displayIcon1 = this.visible ? 'fa fa-plus-circle' : 'fa fa-minus-circle';
+
         },
         err => console.log(err));
   }
 
-  getFriendsList() {
-    var proxyBase = 'https://crossorigin.me/';
-    var urlBase = 'http://api.steampowered.com/';
-    var apiKey = '4EC83A85E32BE750DD60CCB4DA20BA7F';
-    var friendSub = 'ISteamUser/GetFriendList/v0001/?key=';
-    var steamId = '76561197992462280';
-    var url = proxyBase+urlBase+friendSub+apiKey+'&steamid='+steamId+'&relationship=friend';
-    console.log(url);
-    this.http.get(url).map(res => res.json())
-      .subscribe(
+  getFriendsList(id: string) {
+    var api = this.api.getFriendsList(id);
+      api.subscribe(
         data => {
+          console.log(data)
+          this.displayIcon = new Array(data.total);
+          for (var i=0; i < data.friendslist.friends.length; i++) {
+            this.displayIcon[i] = 'fa fa-plus-circle';
+          }
+
           this.friends = data.friendslist.friends;
           this.test = data.friendslist.friends.friend_since;
-
         },
-        err => console.log(err));
+        err => this.wrongCredentials = true);
+  }
+
+  toggleIcon (id: string) {
+    if(this.displayIcon[id] == 'fa fa-minus-circle') {
+      this.showUser = true;
+      this.displayIcon[id] = 'fa fa-plus-circle';
+    }
+    else if (this.displayIcon[id] == 'fa fa-plus-circle') {
+      this.showUser = false;
+      this.displayIcon[id] = 'fa fa-minus-circle';
+    }
+  }
+
+  validateTextLength (control: Control): {[s: string]: boolean} {
+    if (control.value.length < 17 || control.value.length === 0) {
+      return {invalidLength: true};
+    }
   }
 
 }

@@ -1,65 +1,67 @@
-<h1>Welcome to my music</h1>
-<button *ngIf="!user" (click)="login()">Login</button>
-<p *ngIf="!!user">You are logged in as: {{user.id}}</p>
-<span *ngIf="!!user">Enter Spotify Username: </span><input *ngIf="!!user" type="text" [(ngModel)]="userName">
-<button class="showPlaylistButton" *ngIf="!!user" [disabled]="!userName" (click)="getPlaylists(userName)">Show Playlists</button>
-<div class="tableContainer">
-  <table class="mainTable" *ngIf="!!playlists">
-    <thead>
-    <tr>
-      <th>Playlist Name</th>
-      <th>Playlist Owner</th>
-    </tr>
-    <tr>
-      <td>
-        <input class="playlistNameInput" type="text" [(ngModel)]="filterPlaylistName">
-      </td>
-      <td>
-        <input class="playlistOwnerInput" type="text" [(ngModel)]="filterPlaylistOwner">
-      </td>
-    </tr>
-    </thead>
-    <tbody *ngFor="let playlist of (playlists.items | playListNameFilter:filterPlaylistName | playListOwnerFilter:filterPlaylistOwner)">
-    <tr >
-      <td>
-        <span [ngClass]="displayIcon" (click)="getTrackList(playlist.id, playlist.owner.id)" class="expandPlaylist"></span>
-        {{playlist.name}}
-      </td>
-      <td>{{playlist.owner.id}}</td>
-    </tr>
-    <tr *ngIf="playlist.id === playlistId && showTrackList">
-      <td class="trackData">
-        <table class="trackTable">
-          <thead>
-          <tr>
-            <th>Track Name</th>
-            <th>Track Player</th>
-          </tr>
-          <tr>
-            <td>
-              <input class="trackNameInput" type="text" [(ngModel)]="filterTrackName">
-            </td>
-            <td></td>
-          </tr>
-          </thead>
-          <tbody >
-          <tr *ngFor="let track of trackList.items | trackNameFilter:filterTrackName">
+<div class="container">
+  <h1>Welcome to my music</h1>
+  <button *ngIf="!user" (click)="login()" class="btn btn-primary">Login</button>
+  <p *ngIf="!!user">You are logged in as: {{user.id}}</p>
+  <span *ngIf="!!user">Enter Spotify Username: </span><input *ngIf="!!user" type="text" [(ngModel)]="userName">
+  <button class="showPlaylistButton btn btn-primary" *ngIf="!!user" [disabled]="!userName" (click)="getPlaylists(userName)">Show Playlists</button>
+  <div *ngIf="(user) && (wrongUsername)" class="alert alert-danger">Invalid Spotify Username</div>
+  <div class="tableContainer">
+    <table class="mainTable" *ngIf="!!playlists">
+      <thead>
+      <tr>
+        <th>Playlist Name</th>
+        <th>Playlist Owner</th>
+      </tr>
+      <tr>
+        <td>
+          <input class="playlistNameInput" type="text" [(ngModel)]="filterPlaylistName">
+        </td>
+        <td>
+          <input class="playlistOwnerInput" type="text" [(ngModel)]="filterPlaylistOwner">
+        </td>
+      </tr>
+      </thead>
+      <tbody *ngFor="let playlist of (playlists.items | playListNameFilter:filterPlaylistName | playListOwnerFilter:filterPlaylistOwner); let i = index" >
+        <tr >
+          <td>
+            <span (click)="toggleIcon(i)" [ngClass]="displayIcon[i]"  (click)="getTrackList(playlist.id, playlist.owner.id)" class="expandPlaylist"></span>
+            {{playlist.name}}
+          </td>
+          <td>{{playlist.owner.id}}</td>
+        </tr>
+        <tr *ngIf="playlist.id === playlistId && showTrackList">
+          <td class="trackData">
+            <table class="trackTable">
+              <thead>
+              <tr>
+                <th>Track Name</th>
+                <th>Track Player</th>
+              </tr>
+              <tr>
+                <td>
+                  <input class="trackNameInput" type="text" [(ngModel)]="filterTrackName">
+                </td>
+                <td></td>
+              </tr>
+              </thead>
+              <tbody >
+              <tr *ngFor="let track of trackList.items | trackNameFilter:filterTrackName">
 
-            <td>{{track.track.name}}</td>
-            <td>
-              <button (click)="playTrack(track.track.id)">Play Song</button>
-            </td>
+                <td>{{track.track.name}}</td>
+                <td>
+                  <button (click)="playTrack(track.track.id)">Play Song</button>
+                </td>
 
-          </tr>
-          <div *ngIf="showTrackPlayer" class="spotifyPlayer">
-            <span (click)="closePlayer()" class="playerCloseButton fa fa-times"></span>
-            <iframe [src]="trackUrl" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
-          </div>
-          </tbody>
-        </table>
-      </td>
-
-    </tr>
-    </tbody>
-  </table>
+              </tr>
+              <div *ngIf="showTrackPlayer" class="spotifyPlayer">
+                <span (click)="closePlayer()" class="playerCloseButton fa fa-times"></span>
+                <iframe [src]="trackUrl" width="250" height="330" frameborder="0" allowtransparency="true"></iframe>
+              </div>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

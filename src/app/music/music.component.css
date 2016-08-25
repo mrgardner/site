@@ -10,10 +10,6 @@
   top: 20%;
   left: 0; }
 
-.showPlaylistButton {
-  margin-bottom: 2em;
-}
-
 .playerCloseButton {
   color: white;
   position: absolute;
@@ -43,10 +39,13 @@
   margin-top: 1em;
   margin-bottom: 1em; }
 
+div.alert.alert-danger {
+  margin-top: 1em;
+  width: 28%; }
+
 .tableContainer {
   background-color: rgba(186, 186, 186, 0.65);
-  margin-left: 10em;
-  margin-right: 10em; }
+  margin-top: 2em; }
 
 .mainTable tbody tr td:nth-child(1) {
   padding-top: 1em; }
