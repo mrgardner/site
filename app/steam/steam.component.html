@@ -1,42 +1,62 @@
-<button (click)="getFriendsList()">click</button>
-<table *ngIf="friends">
-  <thead>
-    <tr>
-      <th>Friend Since</th>
-      <th>Relationship</th>
-      <th>Steam ID</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let friend of friends">
-    <tr>
-      <td>
-        <span [ngClass]="displayIcon" (click)="getUser(friend.steamid)" class="expandPlaylist">+</span>
-        {{friend.friend_since * 1000 | date:'MM-dd-yyyy'}}
-      </td>
-      <td>{{friend.relationship}}</td>
-      <td>{{friend.steamid}}</td>
-    </tr>
-    <tr *ngIf="friend.steamid === userId && showUser">
-      <td>
-        <table class="userTable">
-          <thead>
-            <tr>
-              <th>avatar</th>
-              <th>Name</th>
-              <th>Last signed in</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let user of users">
-            <tr>
-              <td>
-                <img [src]="user.avatarfull">
-              </td>
-              <td>{{user.personaname}}</td>
-              <td>{{user.lastlogoff * 1000 | date:'MM-dd-yyyy'}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="steamContainer">
+    <!--<button (click)="getFriendsList()">click</button>-->
+    <form [formGroup]="myForm">
+      <div class="form-group">
+        <label for="steamId">Enter Steam ID: </label>
+        <input type="steamId"
+               class="form-control"
+               id="steamId"
+               formControlName="steamId" #steamId>
+        <div class="alert alert-danger" *ngIf="myForm.find('steamId')?.errors?.minlength">Must be at least 17 characters</div>
+        <div class="alert alert-danger" *ngIf="myForm.find('steamId')?.errors?.pattern">Must be only numbers</div>
+        <!--<span class="fa fa-minus-square validation-error" *ngIf="!(myForm.find('password').valid)"></span>-->
+        <!--<span class="fa fa-check-square validation-pass" *ngIf="(myForm.find('password').valid)"></span>-->
+      </div>
+      <button type="submit" (click)="getFriendsList(steamId.value)" class="registerButton btn btn-primary" [disabled]="!myForm.valid">Show Friends</button>
+    </form>
+    <!--<button class="showPlaylistButton btn btn-primary" [disabled]="!steamId" (click)="getFriendsList(steamId)">Show Playlists</button>-->
+    <div *ngIf="wrongCredentials" class="alert alert-danger">Invalid Steam ID</div>
+    <div class="tableContainer">
+      <table *ngIf="friends" class="mainTable">
+        <thead>
+          <tr>
+            <th>Friend Since</th>
+            <th>Steam ID</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let friend of friends; let i = index">
+          <tr>
+            <td>
+              <span (click)="toggleIcon(i)" [ngClass]="displayIcon[i]"  (click)="getUser(friend.steamid)" class="expandPlaylist"></span>
+              {{friend.friend_since * 1000 | date:'MM-dd-yyyy'}}
+            </td>
+            <td>{{friend.steamid}}</td>
+          </tr>
+          <tr *ngIf="friend.steamid === userId && showUser">
+            <td>
+              <table class="userTable">
+                <thead>
+                  <tr>
+                    <th>avatar</th>
+                    <th>Name</th>
+                    <th>Last signed in</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let user of users">
+                  <tr>
+                    <td>
+                      <img [src]="user.avatarfull">
+                    </td>
+                    <td>{{user.personaname}}</td>
+                    <td>{{user.lastlogoff * 1000 | date:'MM-dd-yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

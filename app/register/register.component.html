@@ -1,60 +1,64 @@
-<h1>Register Form</h1>
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()"å>
-  <div formGroupName="userData">
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text"
-             class="form-control"
-             id="firstName"
-             formControlName="firstName" #firstName>
-      <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'firstName']).valid"></span>
-      <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'firstName']).valid"></span>
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text"
-             class="form-control"
-             id="lastName"
-             formControlName="lastName" #lastName>
-      <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'lastName']).valid"></span>
-      <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'lastName']).valid"></span>
-    </div>
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text"
-             class="form-control"
-             id="username"
-             formControlName="username" #username>
-      <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'username']).valid"></span>
-      <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'username']).valid"></span>
-    </div>
-    <div class="form-group">
-      <label for="email">E-Mail</label>
-      <input type="text"
-             class="form-control"
-             id="email"
-             formControlName="email" #email>
-      <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'email']).valid"></span>
-      <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'email']).valid"></span>
-    </div>
+<div class="container">
+  <div class="registerFormContainer">
+    <h1>Register Form</h1>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()"å>
+      <div formGroupName="userData">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="firstName"
+                 formControlName="firstName" #firstName>
+          <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'firstName']).valid"></span>
+          <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'firstName']).valid"></span>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="lastName"
+                 formControlName="lastName" #lastName>
+          <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'lastName']).valid"></span>
+          <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'lastName']).valid"></span>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text"
+                 class="form-control"
+                 id="username"
+                 formControlName="username" #username>
+          <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'username']).valid"></span>
+          <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'username']).valid"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="text"
+                 class="form-control"
+                 id="email"
+                 formControlName="email" #email>
+          <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'email']).valid"></span>
+          <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'email']).valid"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               class="form-control"
+               id="password"
+               formControlName="password" #password>
+        <span class="fa fa-minus-square validation-error" *ngIf="!(myForm.find('password').valid)"></span>
+        <span class="fa fa-check-square validation-pass" *ngIf="(myForm.find('password').valid)"></span>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password"
+               class="form-control"
+               id="confirmPassword"
+               formControlName="confirmPassword" #confirmPassword>
+        <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find('confirmPassword').valid"></span>
+        <span class="fa fa-check-square validation-pass" *ngIf="myForm.find('confirmPassword').valid"></span>
+      </div>
+      <button type="submit" (click)="createUser(firstName.value, lastName.value, email.value, password.value, username.value)" class="registerButton btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password"
-           class="form-control"
-           id="password"
-           formControlName="password" #password>
-    <span class="fa fa-minus-square validation-error" *ngIf="!(myForm.find('password').valid)"></span>
-    <span class="fa fa-check-square validation-pass" *ngIf="(myForm.find('password').valid)"></span>
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input type="password"
-           class="form-control"
-           id="confirmPassword"
-           formControlName="confirmPassword" #confirmPassword>
-    <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find('confirmPassword').valid"></span>
-    <span class="fa fa-check-square validation-pass" *ngIf="myForm.find('confirmPassword').valid"></span>
-  </div>
-  <button type="submit" (click)="createUser(firstName.value, lastName.value, email.value, password.value, username.value)" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
-</form>
+</div>

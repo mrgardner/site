@@ -12,3 +12,22 @@
   margin-left: auto;
   margin-right:auto
 }
+
+.registerButton {
+  position: relative;
+  left: 10%;
+  margin-bottom: 1em;
+}
+
+.registerFormContainer {
+  position: relative;
+  left: 35%;
+}
+
+a {
+  cursor: pointer;
+}
+
+.form-control {
+  width: 28%;
+}

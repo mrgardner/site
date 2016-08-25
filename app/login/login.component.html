@@ -1,26 +1,31 @@
-<h1>Register Form</h1>
-<form [formGroup]="myForm">
-  <div formGroupName="userData">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text"
-             class="form-control"
-             id="username"
-             formControlName="username" #username>
-      <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'username']).valid"></span>
-      <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'username']).valid"></span>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password"
-           class="form-control"
-           id="password"
-           formControlName="password" #password>
-    <span class="fa fa-minus-square validation-error" *ngIf="!(myForm.find('password').valid)"></span>
-    <span class="fa fa-check-square validation-pass" *ngIf="(myForm.find('password').valid)"></span>
-  </div>
-  <button type="submit" (click)="validateCredentials(username.value, password.value)" class="btn btn-primary" [disabled]="!myForm.valid">Login</button>
-</form>
+<div class="container">
+  <div class="loginFormContainer">
+    <h3>Please Login</h3>
+    <form [formGroup]="myForm">
+      <div formGroupName="userData">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text"
+                 class="form-control"
+                 id="username"
+                 formControlName="username" #username>
+          <span class="fa fa-minus-square validation-error" *ngIf="!myForm.find(['userData', 'username']).valid"></span>
+          <span class="fa fa-check-square validation-pass" *ngIf="myForm.find(['userData', 'username']).valid"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               class="form-control"
+               id="password"
+               formControlName="password" #password>
+        <span class="fa fa-minus-square validation-error" *ngIf="!(myForm.find('password').valid)"></span>
+        <span class="fa fa-check-square validation-pass" *ngIf="(myForm.find('password').valid)"></span>
+      </div>
+      <div *ngIf="wrongCredentials" class="alert alert-danger">Invalid Login Credentials</div>
+      <button type="submit" (click)="validateCredentials(username.value, password.value)" class="loginButton btn btn-primary" [disabled]="!myForm.valid">Login</button>
+    </form>
 
-<span>Don't have a username? You can register <a (click)="registerPage()">Here</a></span>
+    <span>Don't have a username? You can register <a [routerLink]="['/register']">Here</a></span>
+  </div>
+</div>
